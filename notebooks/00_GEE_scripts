@@ -8,7 +8,7 @@ JS
 
 // ---------- CONFIGURATION ----------
 
-// Option 2 — Official Lagos State boundary (uncomment to use)
+// Official Lagos State boundary
 
 var roi = ee.FeatureCollection("FAO/GAUL/2015/level1")
               .filter(ee.Filter.and(
