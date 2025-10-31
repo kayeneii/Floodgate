@@ -113,8 +113,66 @@ Export.image.toDrive({
   scale: 30,
   crs: 'EPSG:4326',
   fileFormat: 'GeoTIFF',
-  maxPixels: maxPixels
-});
 
 // ---------- END ----------
 print('✅ Script ready. Run and execute exports under the Tasks tab.');
+
+
+// ---------------------------
+// GEE: export Lagos (Nigeria) boundary bbox and river flowlines to Drive
+// 1) Select Lagos (ADM1, Nigeria) from GAUL and get its geometry
+var gaul_level1 = ee.FeatureCollection("FAO/GAUL/2015/level1");
+var lagos_fc = gaul_level1.filter(ee.Filter.and(
+  ee.Filter.eq('ADM0_NAME', 'Nigeria'),
+  ee.Filter.eq('ADM1_NAME', 'Lagos')
+));
+
+// Safety check: ensure we found Lagos
+print('Lagos features (level1) count:', lagos_fc.size());
+var lagos_count = lagos_fc.size();
+Map.addLayer(lagos_fc, {color: 'red'}, 'Lagos (GAUL level1)');
+
+var roi = lagos_fc.geometry();               // safe: roi is an ee.Geometry
+var roi_bbox = roi.bounds();                 // bounding rectangle geometry
+Map.centerObject(roi, 8);
+Map.addLayer(roi_bbox, {color: 'yellow'}, 'ROI bbox (Lagos)');
+
+// 2) Load hydro flowlines (replace placeholder with the asset you use)
+var rivers = ee.FeatureCollection('WWF/HydroSHEDS/v1/FreeFlowingRivers')
+  .filterBounds(roi);
+Map.addLayer(rivers, {color: 'blue'}, 'HydroSHEDS Rivers');
+
+// 3) Export results to Drive if rivers exists
+var driveFolder = 'GEE_Floodgate';
+
+// Export river features (SHP) — only if rivers was successfully loaded
+if (rivers !== null) {
+  Export.table.toDrive({
+    collection: rivers,
+    description: 'Lagos_Rivers_Export',
+    folder: driveFolder,
+    fileNamePrefix: 'lagos_hydrorivers',
+    fileFormat: 'SHP'
+  });
+  print('Export task for rivers prepared — check Tasks tab and run it.');
+} else {
+  print('Skipping river export because no rivers collection is available in the script.');
+}
+
+// Export bounding box as GeoJSON (always safe)
+var bbox_fc = ee.FeatureCollection([ee.Feature(roi_bbox)]);
+Export.table.toDrive({
+  collection: bbox_fc,
+  description: 'Lagos_BBox_Export',
+  folder: driveFolder,
+  fileNamePrefix: 'lagos_bbox',
+  fileFormat: 'GeoJSON'
+});
+print('Export task for bbox prepared — check Tasks tab and run it.');
+
+// Print helpful diagnostics
+print('ROI centroid (lon, lat):', roi.centroid().coordinates());
+print('ROI area (sq. meters):', roi.area());
+
+  maxPixels: maxPixels
+});
