@@ -1,0 +1,120 @@
+JS
+
+// ---------------------------
+// 🌧️ CHIRPS Seasonal Rainfall + DEM + Slope + Hillshade for Lagos State
+// Date window: 2025-04-01 to 2025-06-30
+// Exports GeoTIFF files to Google Drive
+// ---------------------------
+
+// ---------- CONFIGURATION ----------
+
+// Option 2 — Official Lagos State boundary (uncomment to use)
+
+var roi = ee.FeatureCollection("FAO/GAUL/2015/level1")
+              .filter(ee.Filter.and(
+                ee.Filter.eq('ADM0_NAME', 'Nigeria'),
+                ee.Filter.eq('ADM1_NAME', 'Lagos')
+              ))
+              .geometry();
+
+Map.centerObject(roi, 8);
+Map.addLayer(roi, {color:'red'}, 'ROI (Lagos)');
+
+// ---------- DATE RANGE ----------
+var start = '2025-04-01';
+var end = '2025-06-30';
+
+// ---------- 1️⃣ CHIRPS Seasonal Total ----------
+var chirps = ee.ImageCollection('UCSB-CHG/CHIRPS/DAILY')
+              .filterDate(start, end)
+              .filterBounds(roi);
+
+// Safety check
+var chirpsCount = chirps.size();
+print('CHIRPS images count in range:', chirpsCount);
+
+var chirps_total = chirps.select('precipitation').sum().clip(roi);
+Map.addLayer(chirps_total, {min:0, max:1000, palette:['white','blue','purple']}, 'CHIRPS Total (mm)');
+
+// ---------- 2️⃣ DEM (SRTM) ----------
+var dem = ee.Image('USGS/SRTMGL1_003').select('elevation').clip(roi);
+Map.addLayer(dem, {min:0, max:100, palette:['white','brown']}, 'SRTM DEM (m)');
+
+// ---------- 3️⃣ Slope ----------
+var slope = ee.Terrain.slope(dem).clip(roi);
+Map.addLayer(slope, {min:0, max:60, palette:['white','orange','red']}, 'Slope (degrees)');
+
+// ---------- 4️⃣ Hillshade (for cartography) ----------
+var az = 315;
+var ze = 45;
+var radians = function(img) { return img.multiply(Math.PI).divide(180); };
+var aspect = ee.Terrain.aspect(dem);
+var slope_rad = radians(slope);
+var aspect_rad = radians(aspect);
+var hillshade = slope_rad.expression(
+  'cos(slope)*cos(zenith) + sin(slope)*sin(zenith)*cos(azimuth - aspect)', {
+    'slope': slope_rad,
+    'zenith': ee.Number(90).subtract(ee.Number(ze)).multiply(Math.PI).divide(180),
+    'azimuth': ee.Number(az).multiply(Math.PI).divide(180),
+    'aspect': aspect_rad
+  });
+Map.addLayer(hillshade.clip(roi), {min:0.2, max:1.0, palette:['black','white']}, 'Hillshade (preview)');
+
+// ---------- 5️⃣ EXPORT SETTINGS ----------
+var driveFolder = 'GEE_Floodgate';
+var maxPixels = 1e13;
+
+// --- Export CHIRPS (≈5 km) ---
+Export.image.toDrive({
+  image: chirps_total,
+  description: 'CHIRPS_total_AprJun2025_Lagos',
+  folder: driveFolder,
+  fileNamePrefix: 'chirps_total_20250401_20250630_lagos',
+  region: roi,
+  scale: 5000,
+  crs: 'EPSG:4326',
+  fileFormat: 'GeoTIFF',
+  maxPixels: maxPixels
+});
+
+// --- Export DEM (30 m) ---
+Export.image.toDrive({
+  image: dem,
+  description: 'SRTM_DEM_Lagos',
+  folder: driveFolder,
+  fileNamePrefix: 'srtm_dem_lagos',
+  region: roi,
+  scale: 30,
+  crs: 'EPSG:4326',
+  fileFormat: 'GeoTIFF',
+  maxPixels: maxPixels
+});
+
+// --- Export Slope (30 m) ---
+Export.image.toDrive({
+  image: slope,
+  description: 'SRTM_Slope_Lagos',
+  folder: driveFolder,
+  fileNamePrefix: 'srtm_slope_lagos',
+  region: roi,
+  scale: 30,
+  crs: 'EPSG:4326',
+  fileFormat: 'GeoTIFF',
+  maxPixels: maxPixels
+});
+
+// --- Export Hillshade (30 m) ---
+Export.image.toDrive({
+  image: hillshade,
+  description: 'Hillshade_Lagos',
+  folder: driveFolder,
+  fileNamePrefix: 'hillshade_lagos',
+  region: roi,
+  scale: 30,
+  crs: 'EPSG:4326',
+  fileFormat: 'GeoTIFF',
+  maxPixels: maxPixels
+});
+
+// ---------- END ----------
+print('✅ Script ready. Run and execute exports under the Tasks tab.');
