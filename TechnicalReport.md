@@ -123,6 +123,7 @@ This produced:
 ### 4.3 FRI Calculation
 The Flood Risk Index (FRI) integrates the normalized layers through weighted aggregation:
 
+$$FRI = (0.5×Rain_n​) + (0.35×(1−Elev_n​)) + (0.15×Slope_factor)$$
 
 Where:
 - Rainfall contributes most to flood potential (50%)
