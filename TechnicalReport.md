@@ -142,18 +142,17 @@ These serve as planning thresholds for logistics and emergency response assessme
 
 ## 5. Assumptions
 Although no explicit modeling assumptions were stated, several were implicit:
-1. Static Terrain: Terrain and slope from SRTM (2000) are assumed to accurately represent current conditions.
-2. Uniform Weighting Validity: Weights (0.5, 0.35, 0.15) are assumed representative of Lagos’ hydro-geomorphic context.
-3. Temporal Aggregation: Rainfall was aggregated over April–June 2025, assuming spatial uniformity of cumulative precipitation.
-4. Hydrological Linearity: Relationships among rainfall, slope, and elevation are assumed additive and linearly scalable.
+1. **Static Terrain:** Terrain and slope from SRTM (2000) are assumed to accurately represent current conditions.
+2. **Uniform Weighting Validity:** Weights (0.5, 0.35, 0.15) are assumed representative of Lagos’ hydro-geomorphic context.
+3. **Temporal Aggregation:** Rainfall was aggregated over April–June 2025, assuming spatial uniformity of cumulative precipitation.
+4. **Hydrological Linearity:** Relationships among rainfall, slope, and elevation are assumed additive and linearly scalable.
 
 ## 6. Limitations
-6. Limitations
-1. Temporal Resolution: The analysis uses a single 3-month window, not accounting for intra-seasonal rainfall variation or antecedent soil moisture.
-2. DEM Age and Artifacts: SRTM data (30 m, 2000) may not reflect updated urban morphology or infrastructure changes affecting runoff.
-3. Hydrological Simplification: The FRI model omits drainage capacity, land cover, and impermeable surfaces — critical urban flood determinants.
-4. Weight Subjectivity: Chosen weights lack empirical calibration or validation against observed flood events.
-5. Data Knowledge Gap: Limited subject expertise restricted advanced geostatistical or hydrological modeling (e.g., HEC-RAS, SWAT).
+1. **Temporal Resolution:** The analysis uses a single 3-month window, not accounting for intra-seasonal rainfall variation or antecedent soil moisture.
+2. **DEM Age and Artifacts:** SRTM data (30 m, 2000) may not reflect updated urban morphology or infrastructure changes affecting runoff.
+3. **Hydrological Simplification:** The FRI model omits drainage capacity, land cover, and impermeable surfaces — critical urban flood determinants.
+4. **Weight Subjectivity:** Chosen weights lack empirical calibration or validation against observed flood events.
+5. **Data Knowledge Gap:** Limited subject expertise restricted advanced geostatistical or hydrological modeling (e.g., HEC-RAS, SWAT).
 
 ## 7. Outputs
 | Layer | Description | File Path |
