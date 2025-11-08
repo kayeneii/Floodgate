@@ -11,7 +11,8 @@ GEE_Floodgate/
 ├── flood_corridors/    # Corridor rasters and vector outputs (500m, 1000m)
 ├── notebooks/          # Colab notebooks (data_collection.ipynb, analysis.ipynb, cartography_and_QA.ipynb)
 ├── README.md           # This file
-└── TechnicalReport.md  # Full report on flood risk
+├── AnalyticBrief.pdf   # Two-page policy/defence implications summary
+└── TechnicalReport.md  # Full technical documentation and methodology
 ```
 ## Summary
 - Study area: Lagos State, Nigeria
