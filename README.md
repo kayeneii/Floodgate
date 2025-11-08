@@ -242,4 +242,4 @@ fri_repaired.rio.to_raster(fri_repaired_fp)
 **Date:** October 2025
 
 ## License
-This repository and the derived products are released for research and educational use. Cite data sources (CHIRPS, SRTM, HydroSHEDS) when reusing results.
+This repository and the derived products are released for research and educational use. Cite data sources (CHIRPS, SRTM, HydroSHEDS) when reusing results. Refer to `LICENSE` for full documentation.
