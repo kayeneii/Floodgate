@@ -26,7 +26,7 @@ A proximity analysis (≤500 m and ≤1000 m buffers) identified **rivers and fl
 
 \
 \
-*Figure 1: Flood Risk Index (FRI) composite with rainfall, elevation, and slope weights. Map designed in GEE and finalized in QGIS with scalebar, legend, north arrow, and annotation placed externally.*
+*Figure 1: Flood Risk Index (FRI) composite with rainfall, elevation, and slope weights. Map designed in GEE and finalized in Colab with scalebar, legend, north arrow, and annotation.*
 
 
 <img width="3096" height="1508" alt="lagos_fri_map" src="https://github.com/user-attachments/assets/603b76ee-86e6-41d5-85a7-788ebda2afc4" />
