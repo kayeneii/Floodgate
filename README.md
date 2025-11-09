@@ -28,7 +28,7 @@ GEE_Floodgate/
 | Hydrography (HydroSHEDS freeflowing rivers)           | `WWF/HydroSHEDS/v1/FreeFlowingRivers` |
 | Note: slope & hillshade are derived from SRTM in GEE. | —                                     |
 
-### Exact GEE export commands used
+### Export commands
 
 All exports were executed from the Earth Engine Code Editor and exported to Google Drive in folder `GEE_Floodgate`. Replace `roi` with your Lagos geometry variable.
 ```javascript
@@ -233,13 +233,21 @@ fri_repaired.rio.to_raster(fri_repaired_fp)
 - **Calibrate** weights and thresholds with historical flood observations or insurance/NGO datasets.
 - **Produce LGA-level summaries** for targeted planning.
 
-## Contact & Authorship
+## Visualization Notes
+The final visualization combines:
+- **Hillshade** (for terrain context)
+- **FRI choropleth** (flood intensity gradient)
+- **Hydrography overlay**
+- **Legends, scalebar, north arrow, and annotations** — all positioned outside the map frame for readability.
 
+## Contact & Authorship
 **Author:** Favour Adebayo
 
 **LinkedIn:** https://www.linkedin.com/in/kayeneii
 
 **Date:** October 2025
 
-## License
-This repository and the derived products are released for research and educational use. Cite data sources (CHIRPS, SRTM, HydroSHEDS) when reusing results. Refer to `LICENSE` for full documentation.
+## ⚠️ Disclaimer
+
+This dataset and analysis are intended for research and educational purposes only.
+While care was taken to ensure accuracy, the outputs are not an official flood hazard map and should not be used as a substitute for government-authorized data.
