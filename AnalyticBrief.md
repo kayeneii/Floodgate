@@ -24,6 +24,13 @@ Spatial analyses and validation were performed in Python (v3.10) using **rioxarr
 
 A proximity analysis (≤500 m and ≤1000 m buffers) identified **rivers and flood corridors** most likely to intersect logistics and civilian routes.
 
+\
+\
+*Figure 1: Flood Risk Index (FRI) composite with rainfall, elevation, and slope weights. Map designed in GEE and finalized in QGIS with scalebar, legend, north arrow, and annotation placed externally.*
+
+
+<img width="3096" height="1508" alt="lagos_fri_map" src="https://github.com/user-attachments/assets/603b76ee-86e6-41d5-85a7-788ebda2afc4" />
+
 ---
 
 ## 3. Defense-Relevant Findings  
@@ -112,8 +119,6 @@ This assessment confirms that Lagos’s flood risk constitutes both a **humanita
 
 Future work should advance toward **probabilistic forecasting** and **real-time intelligence fusion**, enabling Nigeria’s defense planners to anticipate and mitigate flood-induced security disruptions with greater precision.
 
-map should be somewhere around here
-
 ---
 
 ## 9. Citation
@@ -126,7 +131,7 @@ map should be somewhere around here
 ## 10. Data & Code Availability
 
 All geospatial processing scripts, source datasets, and map outputs are available in the repository:  
-📂 [`/GEE_Floodgate`](./GEE_Floodgate)
+📂 [`Floodgate`](./Floodgate)
 
 **Primary Data Sources:**
 - CHIRPS (UCSB-CHG/CHIRPS/DAILY)  
