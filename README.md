@@ -209,7 +209,7 @@ fri_repaired.rio.to_raster(fri_repaired_fp)
 - `/content/drive/MyDrive/GEE_Floodgate/maps/fri_map_lagos.png`
 
 ## Reproducibility Tips & Caveats
-- **CRS consistency:* Always reproject vectors to the raster CRS before rasterization. For Lagos, use EPSG:32631.
+- **CRS consistency:** Always reproject vectors to the raster CRS before rasterization. For Lagos, use EPSG:32631.
 - **CHIRPS scale:** CHIRPS is coarse (~5 km). Resampling to 30 m increases visual detail but not underlying native rainfall resolution. Interpret rainfall-driven signals cautiously at fine scales.
 - **Large exports:** GEE may reject very large single exports; tile exports if necessary (2×2 or 3×3 tiling).-
 - **Memory considerations:** Avoid loading extremely large rasters fully into memory; use windowed reads or downsample for exploratory visualization.
