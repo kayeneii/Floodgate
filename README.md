@@ -249,5 +249,4 @@ The final visualization combines:
 
 ## ⚠️ Disclaimer
 
-This dataset and analysis are intended for research and educational purposes only.
-While care was taken to ensure accuracy, the outputs are not an official flood hazard map and should not be used as a substitute for government-authorized data.
+This project uses publicly available environmental datasets for educational and analytical purposes only. It is not intended for operational flood forecasting or emergency decision-making. While care was taken to ensure accuracy, the outputs are not an official flood hazard map and should not be used as a substitute for government-authorized data.
